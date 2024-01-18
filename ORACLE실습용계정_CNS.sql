@@ -58,3 +58,66 @@ SELECT STUDENT_NO, STUDENT_NAME, STUDENT_SSN
 FROM TB_STUDENT
 WHERE  ABSENCE_YN != 'Y' AND SUBSTR(STUDENT_NO, 1,3) = 'A21' AND STUDENT_ADDRESS LIKE '%전주%';
 
+
+--11. 영어영문학과(학과코드 002) 학생들의 학번과 이름, 입학 년도를 입학 년도가 빠른 순으로
+--표시하는 sql문장을 작성하시오. (단, 헤더는 “학번”, “이름”, “입학년도”가 표시되도록 한다.
+SELECT STUDENT_NO, STUDENT_NAME, ENTRANCE_DATE
+FROM TB_STUDENT
+WHERE DEPARTMENT_NO = '002'
+ORDER BY ENTRANCE_DATE ASC;
+
+SELECT *
+FROM (
+                SELECT STUDENT_NO"학번", STUDENT_NAME"이름", ENTRANCE_DATE"입학년도"
+                FROM TB_STUDENT 
+                JOIN TB_DEPARTMENT USING (DEPARTMENT_NO)
+                WHERE DEPARTMENT_NAME LIKE '영어영문%'
+                ) "영어영문학과"
+ORDER BY 입학년도 ASC;
+
+
+--12. 춘 기술대학교의 교수 중 이름이 세 글자가 아닌 교수가 한 명 있다고 한다. 그 교수의 이름
+--과 주민번호를 화면에 출력하는 SQL문장을 작성해 보자.
+
+
+
+
+
+
+--=============실습 2======================
+
+/*19. 춘 기술대학교의 “환경조경학과”가 속한 같은 계열 학과들의 학과 별 전공과목 평점을 파악
+하기 위한 적절한 SQL문을 찾아내시오. 단, 출력헤더는 “계열 학과명”, “전공평점”으로 표시되도
+록 하고, 평점은 소수점 한 자리까지만 반올림하여 표시되도록 한다.
+*/
+
+SELECT DEPARTMENT_NAME"전공학과명", (SELECT POINT 
+                                                                            )
+FROM TB_DEPARTMENT
+LEFT JOIN 
+WHERE CATEGORY = (SELECT CATEGORY
+                                         FROM TB_DEPARTMENT
+                                        WHERE DEPARTMENT_NAME LIKE  '환경조경%')
+GROUP BY CATEGORY;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
