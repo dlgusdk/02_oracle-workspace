@@ -91,14 +91,23 @@ ORDER BY 입학년도 ASC;
 록 하고, 평점은 소수점 한 자리까지만 반올림하여 표시되도록 한다.
 */
 
-SELECT DEPARTMENT_NAME"전공학과명", (SELECT POINT 
-                                                                            )
-FROM TB_DEPARTMENT
-LEFT JOIN 
-WHERE CATEGORY = (SELECT CATEGORY
-                                         FROM TB_DEPARTMENT
-                                        WHERE DEPARTMENT_NAME LIKE  '환경조경%')
-GROUP BY CATEGORY;
+SELECT DEPARTMENT_NAME, ROUND(AVG(TCR.POINT) ,1)
+FROM TB_CLASS TC             
+LEFT JOIN TB_DEPARTMENT TD ON (TD.DEPARTMENT_NO = TC.DEPARTMENT_NO)
+LEFT JOIN TB_GRADE TCR ON (TC.CLASS_NO = TCR.CLASS_NO)
+WHERE DEPARTMENT_NAME  IN ( 
+                                                                 SELECT DISTINCT DEPARTMENT_NAME
+                                                                   FROM TB_CLASS TC             
+                                                                    LEFT JOIN TB_DEPARTMENT TD ON (TD.DEPARTMENT_NO = TC.DEPARTMENT_NO)
+                                                                   LEFT JOIN TB_GRADE TCR ON (TC.CLASS_NO = TCR.CLASS_NO)
+                                                                     WHERE CATEGORY = (
+                                                                                                        SELECT CATEGORY
+                                                                                                       FROM TB_DEPARTMENT 
+                                                                                                         WHERE DEPARTMENT_NAME LIKE  '환경조경%'
+                                                                                                         )
+                                                                  )
+GROUP BY  DEPARTMENT_NAME
+ORDER BY DEPARTMENT_NAME ASC;                                         
 
 
 
