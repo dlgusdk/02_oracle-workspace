@@ -1,0 +1,35 @@
+--1
+SELECT PLAYER_NAME,POSITION, BACK_NO, WEIGHT
+FROM PLAYER
+WHERE TEAM_ID IN ('K02', 'K05');
+
+--2
+SELECT PLAYER_NAME, NATION
+FROM PLAYER
+WHERE NATION IS NOT NULL;
+
+--3
+SELECT PLAYER_NAME,POSITION, BACK_NO, WEIGHT
+FROM PLAYER
+WHERE TEAM_ID = 'K02' OR TEAM_ID = 'K07';
+
+--4
+SELECT TEAM_ID, (ZIP_CODE1 || '-' || ZIP_CODE2)
+FROM TEAM;
+
+--13
+   INSERT  INTO PLAYER
+    (
+     PLAYER_ID, TEAM_ID, PLAYER_NAME, POSITION,  BIRTH_DATE, HEIGHT,  WEIGHT
+    )
+        VALUES
+    (
+    1,'K01', '박주호', 'DF','890316', 176,75
+     );
+     
+     UPDATE PLAYER
+     SET PLAYER_ID = (
+                                         SELECT (SUBSTR( MAX(PLAYER_ID), 1, LENGTH(MAX(PLAYER_ID)) -1 ))|| (SUBSTR(MAX(PLAYER_ID), -1, 1)+1)
+                                         FROM  PLAYER
+                                            )
+        WHERE PLAYER_NAME = '박주호';
